@@ -320,7 +320,7 @@ GameObject:
   - 61: {fileID: 2095694107}
   m_Layer: 0
   m_Name: Bottom
-  m_TagString: Untagged
+  m_TagString: Bottom
   m_Icon: {fileID: -1003283189, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -333,7 +333,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2095694106}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Size: {x: 25, y: .100000001}
   m_Center: {x: 0, y: 0}
 --- !u!4 &2095694108

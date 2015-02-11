@@ -5,12 +5,28 @@ public class CharController : MonoBehaviour {
 
 	public float maxSpeed = 10f;
 
-	private float currentSize;
+	private bool reachedBottom = false;
+	
+	void OnCollisionEnter2D (Collision2D col) {
+		if (col.gameObject.tag == "Bottom") {
+			reachedBottom = true;
+		}
+	}
+
+	void OnGUI () {
+		GUI.skin.label.fontSize = 30;
+		if (reachedBottom) {
+			GUI.Label (new Rect((Screen.width/2) - 135, Screen.height/2, 275, 50), "Drops collected: " + DropletManager.Instance.dropsCollected	);
+
+			if (GUI.Button(new Rect(Screen.width/2 - 75, (Screen.height/2) + 50, 150, 50), "Replay")) {
+				Application.LoadLevel (Application.loadedLevel);
+			}
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		currentSize = transform.localScale.x;
 		float move = Input.GetAxis ("Horizontal");
 		rigidbody2D.velocity = new Vector2 (move * maxSpeed, rigidbody2D.velocity.y);
 
