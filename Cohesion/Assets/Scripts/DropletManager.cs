@@ -3,6 +3,12 @@ using System.Collections;
 
 public class DropletManager : MonoBehaviour {
 
+	public float minY = 0.0f;
+	public float maxY = 0.0f;
+	public float minX = 0.0f;
+	public float maxX = 0.0f;
+
+
 	public static DropletManager Instance {
 		get	{
 			if(instance == null)
@@ -27,7 +33,7 @@ public class DropletManager : MonoBehaviour {
 		
 		while (spawned < numToSpawn)
 		{
-			position = new Vector2 (Random.Range(-4.5f, 4.5f), Random.Range(-10.0f, 4.0f));
+			position = new Vector2 (Random.Range(minX, maxX), Random.Range(minY, maxY));
 			Instantiate(droplet, position, Quaternion.identity);
 			spawned++;
 		}
