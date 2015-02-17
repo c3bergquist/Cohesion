@@ -23,7 +23,7 @@ public class DropletManager : MonoBehaviour {
 	public int dropsCollected = 0;
 	public int numToSpawn = 0;
 
-	private Vector2 position;
+	private Vector3 position;
 	private static DropletManager instance;
 
 	// Use this for initialization
@@ -33,8 +33,10 @@ public class DropletManager : MonoBehaviour {
 		
 		while (spawned < numToSpawn)
 		{
-			position = new Vector2 (Random.Range(minX, maxX), Random.Range(minY, maxY));
-			Instantiate(droplet, position, Quaternion.identity);
+			position = new Vector3 (Random.Range(minX, maxX), Random.Range(minY, maxY), -3.4f);
+
+			Quaternion rotation = Quaternion.Euler (0.0f, 180.0f, 0.0f);
+			Instantiate(droplet, position, rotation);
 			spawned++;
 		}
 	}

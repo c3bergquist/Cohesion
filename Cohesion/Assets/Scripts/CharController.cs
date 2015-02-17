@@ -3,11 +3,12 @@ using System.Collections;
 
 public class CharController : MonoBehaviour {
 
+	public float growMultiplier = 1.01f;
 	public float maxSpeed = 10f;
 
 	private bool reachedBottom = false;
 	
-	void OnCollisionEnter2D (Collision2D col) {
+	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.tag == "Bottom") {
 			reachedBottom = true;
 		}
@@ -28,12 +29,12 @@ public class CharController : MonoBehaviour {
 	void Update () 
 	{
 		float move = Input.GetAxis ("Horizontal");
-		rigidbody2D.velocity = new Vector2 (move * maxSpeed, rigidbody2D.velocity.y);
+		rigidbody.velocity = new Vector2 (move * maxSpeed, rigidbody.velocity.y);
 
-		rigidbody2D.drag = 2 * Mathf.Sin(Time.time) + 3;
+		rigidbody.drag = 2 * Mathf.Sin(Time.time) + 7;
 	}
 
 	public void Grow () {
-		transform.localScale *= 1.1f;
+		transform.localScale *= growMultiplier;
 	}
 }
