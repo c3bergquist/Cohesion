@@ -55,10 +55,6 @@ public class CharController : MonoBehaviour {
 		else if (DropletManager.Instance.dropsCollected <=25 && DropletManager.Instance.dropsCollected > 20) {
 			GameObject.FindGameObjectWithTag ("Body").renderer.material = materials[4];
 		}
-
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			Application.LoadLevel (Application.loadedLevel);
-		}
 	}
 
 	public void Grow () {
