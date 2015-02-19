@@ -4,7 +4,10 @@ using System.Collections;
 public class CharController : MonoBehaviour {
 
 	public float growMultiplier = 1.01f;
+	public float growSpeed = 1.0f;
 	public float maxSpeed = 10f;
+
+	public GameObject rotateDrop;
 
 	public Material[] materials;
 
@@ -17,13 +20,12 @@ public class CharController : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		GUI.skin.label.fontSize = 30;
 		if (reachedBottom) {
-			GUI.Label (new Rect((Screen.width/2) - 135, Screen.height/2, 275, 50), "Drops collected: " + DropletManager.Instance.dropsCollected	);
+			GUI.skin.label.fontSize = 30;
+			GUI.Label (new Rect((Screen.width/2) - 135, Screen.height/2, 275, 50), "Drops collected: " + DropletManager.Instance.dropsCollected);
 
-			if (GUI.Button(new Rect(Screen.width/2 - 75, (Screen.height/2) + 50, 150, 50), "Replay")) {
-				Application.LoadLevel (Application.loadedLevel);
-			}
+			GUI.skin.label.fontSize = 20;
+			GUI.Label (new Rect((Screen.width/2) - 110, (Screen.height/2) + 50, 275, 50), "Press Space To Restart");
 		}
 	}
 	
@@ -32,6 +34,9 @@ public class CharController : MonoBehaviour {
 	{
 		float move = Input.GetAxis ("Horizontal");
 		rigidbody.velocity = new Vector2 (move * maxSpeed, rigidbody.velocity.y);
+
+		transform.localEulerAngles = new Vector3 (0, 180, -move * 30);
+		rotateDrop.transform.localEulerAngles = new Vector3 (0, 0, -move * 30);
 
 		rigidbody.drag = 2 * Mathf.Sin(Time.time) + 7;
 
@@ -50,9 +55,14 @@ public class CharController : MonoBehaviour {
 		else if (DropletManager.Instance.dropsCollected <=25 && DropletManager.Instance.dropsCollected > 20) {
 			GameObject.FindGameObjectWithTag ("Body").renderer.material = materials[4];
 		}
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			Application.LoadLevel (Application.loadedLevel);
+		}
 	}
 
 	public void Grow () {
-		transform.localScale *= growMultiplier;
+		Vector3 newScale = transform.localScale * growMultiplier;
+		transform.localScale = Vector3.Lerp(transform.localScale, newScale, growSpeed);
 	}
 }

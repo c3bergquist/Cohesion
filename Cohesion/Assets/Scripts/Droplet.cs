@@ -3,10 +3,15 @@ using System.Collections;
 
 public class Droplet: MonoBehaviour {
 
+	public AudioClip dropSound;
+
 	void OnTriggerEnter (Collider collider) {
 		if (collider.gameObject.tag == "Player") {
 			DropletManager.Instance.player.GetComponent<CharController> ().Grow ();
 			DropletManager.Instance.dropsCollected++;
+
+			AudioSource.PlayClipAtPoint (dropSound, transform.position);
+
 			Destroy (this.gameObject);
 		}
 		else if (collider.gameObject.tag == "Droplet") {
